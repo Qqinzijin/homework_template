@@ -1,4 +1,4 @@
-public class Max {
+public class FenZhi_1 {
     public static int[] list = { 5, 1, 2, 3, 7, 14, 6 };
 
     public static void main(String[] args) {
