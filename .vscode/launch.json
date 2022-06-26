@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SortTesting",
+            "request": "launch",
+            "mainClass": "SortTesting",
+            "projectName": "homework_template_e40f76e0"
+        },
+        {
+            "type": "java",
             "name": "Launch sdF",
             "request": "launch",
             "mainClass": "sdF",
