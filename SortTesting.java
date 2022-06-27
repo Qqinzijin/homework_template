@@ -16,10 +16,10 @@ public class SortTesting {
                 n.add(r.nextInt());
                 //n[j]=r.nextInt();
             }
-            Bubble B=new Bubble();
-            BubbleNum=B.BubbleSort(n,BubbleNum);
-        System.out.println("冒泡算法比较操作执行"+BubbleNum+"次");
         int[] arr = n.stream().mapToInt(y -> y).toArray();
+            Bubble B=new Bubble();
+            BubbleNum=B.BubbleSort(arr,BubbleNum);
+        System.out.println("冒泡算法比较操作执行"+BubbleNum+"次");
         Quick Q=new Quick();
         QuickNum=Q.QuickSort(arr, 0, arr.length-1,QuickNum);
         System.out.println("快速算法比较操作执行"+QuickNum+"次");
@@ -32,14 +32,14 @@ public class SortTesting {
     }
 }
 class Bubble{
-    int BubbleSort(List<Integer> n,int BubbleNum){
-        for (int i = 0; i < n.size() - 1; i++) {
-            for (int j = 1; j < n.size() - i; j++) {
-                Integer a;
-                if ((n.get(j)).compareTo(n.get(j - 1))>0) { // 比较两个整数的大小
-                    a = (Integer) n.get(j - 1);
-                    n.set((j - 1), n.get(j));
-                    n.set(j, a);
+    int BubbleSort(int arr[],int BubbleNum){
+        for (int i = 0; i < arr.length - 1; i++) {
+            // 比较相邻两个元素，较大的数往后冒泡
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    double temp = arr[j + 1]; // 把第一个元素值保存到临时变量中
+                    arr[j + 1] = arr[j]; // 把第二个元素值转移到第一个元素变量中
+                    arr[j] = (int) temp; // 把临时变量（第一个元素的原值）保存到第二个元素中
                     BubbleNum++;
                 }
             }
