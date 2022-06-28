@@ -1,4 +1,4 @@
-# 动态规划算法2.1实验报告
+# 贪心算法实验报告
 
 ## 学号：20201050422
 
@@ -6,86 +6,97 @@
 
 ## 实验目的：
 
-1. 编程实现经典的动态规划算法，理解动态规划算法设计的基本思想、程序实
-
-   现的相关技巧，加深对动态规划算法设计与分析思想的理解。通过程序的执行时
-
-   间测试结果，与理论上的时间复杂度结论进行对比、分析和验证。
+1. 编程实现经典的贪心算法，理解贪心算法设计的基本思想、程序实现的相关技巧，加深对贪心算法设计与分析思想的理解。通过程序的执行时间测试结果，与理论上的时间复杂度结论进行对比、分析和验证。
 
 ## 实验原理
 
-**动态规划算法的基本思想**
+**贪心算法的基本思想**
 
-动态规划是一种在数学和计算机科学中使用的、用于求解包含重叠子问题的
+贪心算法求解优化问题的基本思想是：采用逐步构造最优解的方法。在每个阶段，都作出一个当前最优的决策（在一定的标准下）。决策一旦作出，就不可再更改（作出贪心决策的依据称为贪心准则）。贪心算法的一般步骤如下：
 
-最优化问题的有效方法。其基本思想是：将原问题分解为相似的子问题，在求解
+(1) 根据拟解决问题选取一种贪心准则；
 
-的过程中通过子问题的解描述并求出原问题的解。动态规划的思想是多种算法的
+(2) 按贪心准侧标准对 *n* 个候选输入排序（以这一方法为代表，仍可基于堆
 
-基础，被广泛应用于计算机科学和工程领域，在查找有很多重叠子问题的情况的
+来存储候选）；
 
-最优解时有效。它将问题重新组合成子问题，为了避免多次解决这些子问题，它
+(3) 依次选择输入量加入部分解中：如果当前这个输入量的加入，不满足约
 
-们的结果都逐渐被计算并保存，从小规模的子问题直到整个问题都被解决。因此，
+束条件，则不把此输入加到这部分解中。
 
-动态规划对每一子问题只做一次计算，具有较高的效率。
+贪心算法的基本设计范式如下：
+
+```
+Greedy(A,n) 
+A: include n inputs 
+Solution=Ф
+for i=1 to n do 
+ x=Select(A) 
+ if Feasible(solution,x) then 
+ solution=Union(solution,x) 
+ end if 
+end for 
+return solution
+```
 
 **测试算法**
 
-0-1 背包问题是使用动态规划算法求解的代表问题，算法如下：
+背包问题是使用贪心算法求解的代表问题，算法如下：
 
 ```
-KnapsackDP ({w1, w2, …, wn}, {v1, v2, …, vn}, C) 
-for i=0 to n do 
- m[i,0]=0 
-end for 
-for j=0 to C do 
- m[0,j]=0 
-end for 
-for i=1 to n do 
- for j=1 to C do 
-9
- m[i,j]=m[i-1,j] 
- if wij then 
- m[i,j]=max{m[i,j],m[i-1,j-wi]+vi} 
- end if 
-end for 
-end for 
-return m[n,C]
+KnapsackGreedy(p，w，m，x，n) 
+ //v[1..n]和 w[1..n]分别含有按 vi/wiv(i+1)/v(i+1)排序的 n 
+件物品的价值和重量。M 是背包的容量大小，而 x[1..n]是解向量// 
+ for i=1 to n do 
+xi=0 //将解向量初始化为零// 
+ end for 
+ cu=m //cu 是背包剩余容量// 
+ for i=1 to n do 
+ if wi>cu then 
+exit 
+end if 
+ xi=1 
+ cu=cu-wi 
+ repeat 
+ if i≤n then 
+xi=cu/wi 
+ end if
 ```
 
-算法的时间复杂度为 *O*(*nC*)。
+算法的时间复杂度取决于对 *v**i*/*w**i* 排序的时间复杂度，若选择 MergeSort 排序算法，则以上算法的时间复杂度为 *O*(*n*log*n*)。
 
 ## 实验输入数据集
 
-文本数据集：线性同余法（Java中的radom函数）随机生成
-文件数据集：[数据集](https://github.com/Qqinzijin/homework_template/blob/main/data/0-1bag-list)
+文本数据集：背包容量固定为20，物品种类和价值随机生成
+文件数据集：[数据集](https://github.com/Qqinzijin/homework_template/blob/main/data/KnapsackGreedy.txt)
 
 ## 实验内容
 
-1. [bag0-1](https://github.com/Qqinzijin/homework_template/blob/main/bag0_1.java) 算法实现的java版本
+1. [KnapsackGreedy.java](https://github.com/Qqinzijin/homework_template/blob/main/KnapsackGreedy.java)算法实现的java版本
 
 ## 实验预期结果与实际结果
 
-- 实验预期结果（时间：ms）：
+- 实验预期结果：
 
-  ![image-20220627205822645](C:\Users\86135\AppData\Roaming\Typora\typora-user-images\image-20220627205822645.png)
-
-实验过程及实验结果（Java版，由于实验过程中给出数据导致代码过长，所以这里仅给出实例）
+实验过程及实验结果（Java版，完整结果过长仅给出其中一种示例）
 
 ```
-gitpod /workspace/homework_template (main) $  cd /workspace/homework_template ; /usr/bin/env /home/gitpod/.sdkman/candidates/java/11.0.15.fx-zulu/bin/java -cp /workspace/.vscode-remote/data/User/workspaceStorage/-1e14eb41/redhat.java/jdt_ws/homework_template_e40f76e0/bin bag0_1 
+gitpod /workspace/homework_template (main) $  /usr/bin/env /home/gitpod/.sdkman/candidates/java/11.0.15.fx-zulu/bin/java -cp /workspace/.vscode-remote/data/User/workspaceStorage/-32e54fb5/redhat.java/jdt_ws/homework_template_e40f76e0/bin KnapsackGreedy 
 Picked up JAVA_TOOL_OPTIONS:  -Xmx3435m
-请输入物品种数:
-100
-请输入背包容量:
-400
-各物品重量为：163, 373, 173, 24, 165, 248, 205, 7, 30, 272, 312, 13, 232, 240, 291, 12, 315, 226, 73, 35, 28, 311, 316, 157, 399, 14, 262, 343, 362, 19, 298, 159, 152, 239, 124, 136, 215, 382, 186, 217, 383, 238, 182, 37, 95, 3, 353, 133, 277, 327, 37, 98, 393, 239, 47, 319, 71, 137, 327, 178, 183, 161, 317, 323, 347, 2, 146, 13, 212, 217, 48, 306, 145, 118, 151, 300, 38, 92, 341, 61, 181, 376, 161, 151, 155, 318, 293, 280, 265, 158, 21, 142, 205, 262, 368, 104, 29, 273, 146, 93, 
-各物品价值为：2, 5, 7, 9, 7, 0, 8, 3, 2, 2, 6, 6, 1, 8, 4, 3, 0, 7, 4, 2, 5, 5, 1, 2, 7, 4, 9, 4, 4, 2, 7, 5, 9, 3, 1, 2, 6, 4, 4, 8, 5, 8, 4, 2, 9, 9, 2, 4, 2, 3, 8, 3, 6, 6, 7, 2, 0, 1, 6, 7, 7, 9, 6, 7, 7, 2, 3, 5, 4, 3, 7, 3, 0, 6, 3, 3, 6, 0, 6, 0, 6, 6, 2, 6, 9, 4, 5, 1, 0, 1, 0, 9, 3, 3, 2, 3, 9, 4, 1, 6, 
-可装入最大价值为：89
-程序耗时:12811ms
+请输入物品种数n：
+10
+请输入背包容量m：
+20
+物品重量为：
+7.0 19.0 18.0 15.0 17.0 18.0 9.0 18.0 12.0 7.0 
+物品价值为：
+10.0 14.0 6.0 9.0 1.0 9.0 13.0 9.0 18.0 1.0 
+问题的解为：
+0.0 1.0 0.06666667 0.0 0.0 0.0 0.0 0.0 0.0 0.0 
+最优解的最终价值为：14.6
+程序耗时:8214ms
 ```
 
-## 实验总结
+![image-20220628100313937](C:\Users\86135\AppData\Roaming\Typora\typora-user-images\image-20220628100313937.png)
 
-写代码注意物品重量不能超过背包容量，为减少计算量这里的物品价值取值在[0,9];当背包容量较小和较大时曲线呈现中间高两边低的特点，表明种类在40到200之间时耗时最多；当背包容量适中（400,800）时耗时随着种类增多而减少。
+理论上的时间复杂度，该算法的时间主要消耗在将各种物品依其单位重量的价值从大到小排序。 因此，其时间复杂性为O (nlog2n)，所以随着输入种类的增多，时间将越长，呈现nlogn的增长形式，但图像并没有完美的体现这一点，这可能是由于测试次数较少，不够精确，随机数产生的偶然性，以及程序在打印数据时产生的时间也不同等各种因素导致的。
