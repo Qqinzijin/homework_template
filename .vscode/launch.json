@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch KnapsackGreedy",
+            "request": "launch",
+            "mainClass": "KnapsackGreedy",
+            "projectName": "homework_template_e40f76e0"
+        },
+        {
+            "type": "java",
             "name": "Launch Fibonacci",
             "request": "launch",
             "mainClass": "Fibonacci",
